@@ -22,7 +22,7 @@ const App = () => {
     }
   ]
 
-  const [searchTerm, setSearchTerm] = React.useState('React')
+  const [searchTerm, setSearchTerm] = React.useState('')
 
     // A
   const handleSearch = (event) => 
@@ -46,35 +46,43 @@ const App = () => {
     </div>
   );
  
-}
+  }
 
-const Search = (props) => (
-    <div>
+const Search = ( search, onSearch ) => (
+   <div>
       <label htmlFor='search'>Search: </label>
-      <input id='search' type='text' value={props.search} onChange={props.onSearch} />
+      <input 
+        id='search' 
+        type='text' 
+        value={search} 
+        onChange={onSearch} 
+      />
     </div>
-  )
+)
 
 
-const List = (props) => 
-{
-  return (
-    <ul>
-      {props.list.map((item) => (
-        <Item key={item.objectID} item={item} />
-      ))}
-    </ul>
-  )
-}
+const List = ({ list }) => 
+(
+  <ul>
+    {list.map(({ objectID, ...item}) => (
+      <Item 
+        key={item.objectID} 
+        {...item}
+      />
+    ))}
+  </ul>
+)
 
-const Item = (props) => (
- <li>
+
+const Item = ({ title, url, author, num_comments, points}) =>
+(
+  <li>
     <span>
-      <a href={props.item.url}>{props.item.title}</a>
+      <a href={url}>{title}</a>
     </span>
-    <span>{props.item.author}</span>
-    <span>{props.item.num_comments}</span>
-    <span>{props.item.points}</span>
+    <span>{author}</span>
+    <span>{num_comments}</span>
+    <span>{points}</span>
   </li>
 )
 
