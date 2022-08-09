@@ -42,7 +42,6 @@ const App = () => {
     {
       // C
       setSearchTerm(event.target.value)
-
     }
   
   const searchedStories = stories.filter((story) => story.title.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -59,44 +58,40 @@ const App = () => {
       <List list={searchedStories}/>
     </div>
   );
- 
-  }
+}
 
-const Search = ( search, onSearch ) => (
-   <div>
-      <label htmlFor='search'>Search: </label>
-      <input 
-        id='search' 
-        type='text' 
-        value={search} 
-        onChange={onSearch} 
-      />
-    </div>
-)
+const Search = ({ search, onSearch }) => 
+[
+<label key="1" htmlFor='search'>Search:{' '}</label>,
+<input 
+  key="2"
+  id='search' 
+  type='text' 
+  value={search} 
+  onChange={onSearch} 
+/>,
+]
 
 
 const List = ({ list }) => 
 (
   <ul>
-    {list.map(({ objectID, ...item}) => (
-      <Item 
-        key={item.objectID} 
-        {...item}
-      />
+    {list.map((item) => (
+      <Item key={item.objectID} item={item} />
     ))}
   </ul>
 )
 
 
-const Item = ({ title, url, author, num_comments, points}) =>
+const Item = ({ item }) =>
 (
   <li>
     <span>
-      <a href={url}>{title}</a>
+      <a href={item.url}>{item.title}</a>
     </span>
-    <span>{author}</span>
-    <span>{num_comments}</span>
-    <span>{points}</span>
+    <span>{item.author}</span>
+    <span>{item.num_comments}</span>
+    <span>{item.points}</span>
   </li>
 )
 
